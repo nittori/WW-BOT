@@ -18,7 +18,7 @@ def get_api():
 def tw_search(api,keyword):
     #RTを除外して検索
     q = f"{keyword} exclude:retweets"
-    #無料版APIは1秒で50回のツイートを取得できる
+    #無料版スタンダードAPIは1秒で50ツイートを取得できる
     #result_typeは取得するツイートをrecentとpopularityの両観点から選択
     tweets = api.search_tweets(q=q, count=50 ,result_type="mixed", tweet_mode='extended')
     
