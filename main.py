@@ -36,7 +36,7 @@ def tw_search(api,keyword):
             tw_ids.append(tw_id)
             tw_db.insert_db(tw_id)
         
-    if tw_db.count_db()>10:
+    if tw_db.count_db()>1000:
         tw_db.del_900()
     return tw_ids
 
