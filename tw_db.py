@@ -9,7 +9,7 @@ def get_connection():
     dsn = os.environ.get('DATABASE_URL')
     return psycopg2.connect(dsn)
 
-
+#最初にデータベースのテーブルを作るためだけの関数
 def create_db_table():
     with get_connection() as conn:
         with conn.cursor() as cur:
@@ -33,7 +33,8 @@ def remove_db(tw_id):
             
             print(f"\nremove {tw_id}\n")
         conn.commit()
-        
+
+#データのオーバーフローを防ぐために900行分削除する関数
 def del_900():
     del_id_list = []
     with get_connection() as conn:
