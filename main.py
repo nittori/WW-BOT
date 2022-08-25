@@ -30,8 +30,6 @@ def tw_search(api,keyword):
         favo: int = tweet.favorite_count
         text: str = tweet.full_text.replace('\n','')
         
-        #取得ツイート確認
-        print(user_id,tw_date,text)
         #リクエスト過多を防ぐためのsleep
         time.sleep(1)
         
@@ -41,6 +39,8 @@ def tw_search(api,keyword):
             continue
         #未登録ツイートの処理、データベースにも登録
         else:
+            #取得ツイート確認
+            print(user_id,tw_date,text)
             tw_ids.append(tw_id)
             tw_db.insert_db(tw_id)
             
