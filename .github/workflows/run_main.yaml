@@ -5,7 +5,7 @@ on:
     #branches: [main]
   schedule:
     #github actions のデフォルトの time zone が UTC なので、日本時間 - 9時間 した値を書く
-    - cron:  '2 * * * *'
+    - cron:  '0 * * * *'
   #pull_request:
   workflow_dispatch:
     branches: [main]
