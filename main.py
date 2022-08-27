@@ -44,8 +44,6 @@ def tw_search(api,keyword):
                 print(user_id,tw_date,text)
                 tw_ids.append(tw_id)
                 tw_db.insert_db(tw_id)
-         else:
-            continue
             
     #Heroku Postgres無料版はデータを10000行まで登録できる
     #余裕をもって1000行まで行ったら、前から900行分削除
