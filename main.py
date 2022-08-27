@@ -32,17 +32,20 @@ def tw_search(api,keyword):
         
         #リクエスト過多を防ぐためのsleep
         time.sleep(1)
-        
-        #取得したツイートがデータベースに登録済みならスルー
-        if tw_db.check_db(tw_id) == True:
-            print("This tweet has already been registered")
+        #検索を完全一致に
+        if keyword in text:
+            #取得したツイートがデータベースに登録済みならスルー
+            if tw_db.check_db(tw_id) == True:
+                print("This tweet has already been registered")
+                continue
+            #未登録ツイートの処理、データベースにも登録
+            else:
+                #取得ツイート確認
+                print(user_id,tw_date,text)
+                tw_ids.append(tw_id)
+                tw_db.insert_db(tw_id)
+         else:
             continue
-        #未登録ツイートの処理、データベースにも登録
-        else:
-            #取得ツイート確認
-            print(user_id,tw_date,text)
-            tw_ids.append(tw_id)
-            tw_db.insert_db(tw_id)
             
     #Heroku Postgres無料版はデータを10000行まで登録できる
     #余裕をもって1000行まで行ったら、前から900行分削除
@@ -75,6 +78,7 @@ def main():
     keyword = "魔女兵器"
     favotw_ids = tw_search(api,keyword)
     #for favotw_id in favotw_ids:
+        tw_retweet(api,favotw_id)
         #tw_favo(api,favotw_id)
     
 if __name__ == "__main__":
