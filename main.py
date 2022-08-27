@@ -69,13 +69,13 @@ def main():
     retw_ids = tw_search(api,keyword)
     for retw_id in retw_ids:
         tw_retweet(api,retw_id)
-        tw_favo(api,retw_id)
+        #tw_favo(api,retw_id)
     
     # 「魔女兵器」はなぜか完全一致検索にならず関係ないツイートもひっかかるので、いいねのみ
     keyword = "魔女兵器"
     favotw_ids = tw_search(api,keyword)
-    for favotw_id in favotw_ids:
-        tw_favo(api,favotw_id)
+    #for favotw_id in favotw_ids:
+        #tw_favo(api,favotw_id)
     
 if __name__ == "__main__":
     main()
