@@ -36,7 +36,7 @@ def tw_search(api,keyword):
         if keyword in text:
             #取得したツイートがデータベースに登録済みならスルー
             if tw_db.check_db(tw_id) == True:
-                print("This tweet has already been registered")
+                print(f"{tw_id} has already been registered")
                 continue
             #未登録ツイートの処理、データベースにも登録
             else:
