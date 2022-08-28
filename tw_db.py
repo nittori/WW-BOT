@@ -83,5 +83,6 @@ def count_db():
             
 if __name__ == "__main__":
     #create_db_table()
+    del_900()
     print_db()
     count_db()
