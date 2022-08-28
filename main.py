@@ -33,7 +33,7 @@ def tw_search(api,keyword):
         #リクエスト過多を防ぐためのsleep
         time.sleep(1)
         #検索を完全一致に
-        if keyword in text:
+        if "魔女兵器" in text:
             #取得したツイートがデータベースに登録済みならスルー
             if tw_db.check_db(tw_id) == True:
                 print(f"{tw_id} has already been registered")
@@ -66,18 +66,12 @@ def tw_favo(api,tw_id):
 def main():
     api = get_api()
     # 「#魔女兵器」はRTもいいねもする
-    keyword = "#魔女兵器"
-    retw_ids = tw_search(api,keyword)
-    for retw_id in retw_ids:
-        tw_retweet(api,retw_id)
-        #tw_favo(api,retw_id)
-    
-    # 「魔女兵器」はなぜか完全一致検索にならず関係ないツイートもひっかかるので、いいねのみ
-    keyword = "魔女兵器"
-    favotw_ids = tw_search(api,keyword)
-    for favotw_id in favotw_ids:
-        tw_retweet(api,favotw_id)
-        #tw_favo(api,favotw_id)
-    
+    keywords = ["#魔女兵器","魔女兵器","レンちゃん"]
+    for keyword in keywords:
+        retw_ids = tw_search(api,keyword)
+        
+        for retw_id in retw_ids:
+            tw_retweet(api,retw_id)
+
 if __name__ == "__main__":
     main()
