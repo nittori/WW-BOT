@@ -54,9 +54,9 @@ def tw_search(api,keyword):
 def tw_retweet(api,tw_id):
     try:
         api.retweet(tw_id)
+        time.sleep(300)
     except:
         print("retweet error")
-    time.sleep(0)
 
 def tw_favo(api,tw_id):
     try:    
