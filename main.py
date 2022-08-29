@@ -56,7 +56,7 @@ def tw_retweet(api,tw_id):
         api.retweet(tw_id)
     except:
         print("retweet error")
-    time.sleep(10)
+    time.sleep(0)
 
 def tw_favo(api,tw_id):
     try:    
