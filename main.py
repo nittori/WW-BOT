@@ -80,9 +80,11 @@ def main():
         
         for retw_id in retw_ids:
             retw_flag = tw_retweet(api,retw_id)
-            if retw_flag:
-                break
             
+            #一件RTできたら２重ループを抜ける
+            if retw_flag:
+                print(f"The key word this time was {keyword}")
+                break
         if retw_flag:
             break
             
