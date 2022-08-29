@@ -31,7 +31,7 @@ def tw_search(api,keyword):
         text: str = tweet.full_text.replace('\n','')
         
         #リクエスト過多を防ぐためのsleep
-        time.sleep(1)
+        time.sleep(10)
         #検索を完全一致に
         if "魔女兵器" in text:
             #取得したツイートがデータベースに登録済みならスルー
