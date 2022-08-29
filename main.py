@@ -55,7 +55,7 @@ def tw_search(api,keyword):
 def tw_retweet(api,tw_id):
     try:
         #api.retweet(tw_id)
-        return True
+        return False
     except:
         print("retweet error")
         return False
