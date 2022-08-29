@@ -54,7 +54,7 @@ def tw_search(api,keyword):
 
 def tw_retweet(api,tw_id):
     try:
-        api.retweet(tw_id)
+        #api.retweet(tw_id)
         return True
     except:
         print("retweet error")
@@ -71,7 +71,7 @@ def main():
     #検索キーワード
     keywords = ["#魔女兵器","魔女兵器","レンちゃん"]
     #キーワード順でRTが偏らないようにキーワードをシャッフル
-    random.shuffle(keywords)
+    #random.shuffle(keywords)
     
     retw_flag = False
     for keyword in keywords:
