@@ -56,6 +56,7 @@ def tw_retweet(api,tw_id):
         api.retweet(tw_id)
     except:
         print("retweet error")
+    time.sleep(10)
 
 def tw_favo(api,tw_id):
     try:    
@@ -65,7 +66,7 @@ def tw_favo(api,tw_id):
      
 def main():
     api = get_api()
-    # 「#魔女兵器」はRTもいいねもする
+    # 検索キーワード
     keywords = ["#魔女兵器","魔女兵器","レンちゃん"]
     for keyword in keywords:
         retw_ids = tw_search(api,keyword)
