@@ -1,7 +1,8 @@
 import tweepy
 import time
 import os
-import tw_db 
+import tw_db
+import random 
 
 def get_api():
     #API_KEYとかはWEB上に公開すると無効になるので、環境変数に登録して使う
@@ -54,9 +55,10 @@ def tw_search(api,keyword):
 def tw_retweet(api,tw_id):
     try:
         api.retweet(tw_id)
-        time.sleep(300)
+        return True
     except:
         print("retweet error")
+        return False
 
 def tw_favo(api,tw_id):
     try:    
@@ -66,13 +68,23 @@ def tw_favo(api,tw_id):
      
 def main():
     api = get_api()
-    # 検索キーワード
+    #検索キーワード
     keywords = ["#魔女兵器","魔女兵器","レンちゃん"]
+    #キーワード順でRTが偏らないようにキーワードをシャッフル
+    random.shuffle(keywords)
+    
+    retw_flag = False
     for keyword in keywords:
         retw_ids = tw_search(api,keyword)
         
         for retw_id in retw_ids:
-            tw_retweet(api,retw_id)
-
+            retw_flag = tw_retweet(api,retw_id)
+            if retw_flag:
+                break
+            
+        if retw_flag:
+            break
+            
+            
 if __name__ == "__main__":
     main()
