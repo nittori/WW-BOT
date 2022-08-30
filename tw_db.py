@@ -88,7 +88,7 @@ def add_column():#ALTER TABLE テーブル名 ADD COLUMN カラム名 データ�
 def update_retwed(tw_id,retwed):#UPDATE テーブル名 SET 列名 = 式 WHERE 条件式;
     with get_connection() as conn:
         with conn.cursor() as cur:            
-            cur.execute(f"UPDATE twids SET retwed = '{retwed}' WHERE tw_id = 'tw_id';")
+            cur.execute(f"UPDATE twids SET retwed = '{retwed}' WHERE tw_id = '{tw_id}';")
             #cur.execute("UPDATE twids SET retwed = 'yes';")
         conn.commit()
         
