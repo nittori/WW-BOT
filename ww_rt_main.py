@@ -29,7 +29,7 @@ def get_tw_indb():
 
 def tw_retweet(api,tw_id):
     try:
-        #api.retweet(tw_id)
+        api.retweet(tw_id)
         tw_db.update_retwed(tw_id,"yes")
         print(f"RT {tw_id}")
         
