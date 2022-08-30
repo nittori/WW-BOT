@@ -1,11 +1,11 @@
-name: run_standard_yaml
+name: run_get_standard
 
 on:
   #push:
     #branches: [main]
-  #schedule:
+  schedule:
     #github actions のデフォルトの time zone が UTC なので、日本時間 - 9時間 した値を書く
-    #- cron:  '30 * * * *'
+    - cron:  '30 * * * *'
   #pull_request:
   workflow_dispatch:
     branches: [main]
@@ -26,7 +26,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run Python
         run: 
-            python main_standard_search.py
+            python get_standard_tweets.py
         env:
             API_KEY: ${{secrets.API_KEY}}
             API_SECRET: ${{secrets.API_SECRET}}

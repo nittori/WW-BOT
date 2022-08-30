@@ -30,8 +30,6 @@ def tw_search(api,keyword):
         favo: int = tweet.favorite_count
         text: str = tweet.text.replace('\n','')
         
-        #リクエスト過多を防ぐためのsleep
-        time.sleep(1)
         #検索を完全一致に
         if "魔女兵器" in text:
             #取得したツイートがデータベースに登録済みならスルー
@@ -42,49 +40,16 @@ def tw_search(api,keyword):
             else:
                 #取得ツイート確認
                 print(user_id,tw_date,text)
-                tw_ids.append(tw_id)
+                tw_db.insert_db(tw_id, "no")
 
-    #Heroku Postgres無料版はデータを10000行まで登録できる
-    #余裕をもって1000行まで行ったら、前から900行分削除
-    if tw_db.count_db()>1000:
-        tw_db.del_900()
     return tw_ids
 
-def tw_retweet(api,tw_id):
-    try:
-        api.retweet(tw_id)
-        tw_db.insert_db(tw_id)
-        time.sleep(30*60)
-        return True
-    except:
-        print("retweet error")
-        return False
-
-def tw_favo(api,tw_id):
-    try:    
-        api.create_favorite(id=tw_id)
-    except:
-        print("favorite error")
-     
 def main():
     api = get_api()
     #検索キーワード
-    keywords = ["魔女兵器"]
+    keyword = "魔女兵器"
+ 
+    tw_search(api,keyword)
     
-    #キーワード順でRTが偏らないようにキーワードをシャッフル
-    random.shuffle(keywords)
-    
-    retw_cnt = 0
-    keyword = keywords[0]
-    retw_ids = tw_search(api,keyword)
-    
-    for retw_id in retw_ids:
-        if tw_retweet(api,retw_id):
-            retw_cnt+=1
-            
-        if retw_cnt > 6:
-            break
-            
-            
 if __name__ == "__main__":
     main()

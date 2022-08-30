@@ -43,42 +43,14 @@ def tw_search(api,keyword):
             else:
                 #取得ツイート確認
                 print(user_id,tw_date,text)
-                tw_ids.append(tw_id)
-
-    #Heroku Postgres無料版はデータを10000行まで登録できる
-    #余裕をもって1000行まで行ったら、前から900行分削除
-    if tw_db.count_db()>1000:
-        tw_db.del_900()
-    return tw_ids
-
-def tw_retweet(api,tw_id):
-    try:
-        api.retweet(tw_id)
-        tw_db.insert_db(tw_id)
-        return True
-    except:
-        print("retweet error")
-        return False
-
-def tw_favo(api,tw_id):
-    try:    
-        api.create_favorite(id=tw_id)
-    except:
-        print("favorite error")
+                tw_ids.append(tw_id,"no")
      
 def main():
     api = get_api()
     #検索キーワード
     keyword = "#魔女兵器"
+    tw_search(api,keyword)
     
-    retw_flag = False
-    retw_ids = tw_search(api,keyword)
-    
-    for retw_id in retw_ids:
-        retw_flag = tw_retweet(api,retw_id)
-        if retw_flag:
-            break
-        
             
 if __name__ == "__main__":
     main()

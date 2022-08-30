@@ -1,0 +1,36 @@
+name: run_get_premium
+
+on:
+  #push:
+    #branches: [main]
+  schedule:
+    #github actions のデフォルトの time zone が UTC なので、日本時間 - 9時間 した値を書く
+    - cron:  '20 */4 * * *'
+  #pull_request:
+  workflow_dispatch:
+    branches: [main]
+
+jobs:
+  run-main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Get Python version
+        run: python -V
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run Python
+        run: 
+            python get_premium_tweets.py
+        env:
+            API_KEY: ${{secrets.API_KEY}}
+            API_SECRET: ${{secrets.API_SECRET}}
+            ACCESS_TOKEN: ${{secrets.ACCESS_TOKEN}}
+            ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+            DATABASE_URL: ${{secrets.DATABASE_URL}}
+            DEV_LABEL: ${{secrets.DEV_LABEL}}

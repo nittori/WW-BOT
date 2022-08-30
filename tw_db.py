@@ -9,7 +9,7 @@ def get_connection():
     dsn = os.environ.get('DATABASE_URL')
     return psycopg2.connect(dsn)
 
-#最初にデータベースのテーブルを作るためだけの関数
+
 def create_db_table():
     with get_connection() as conn:
         with conn.cursor() as cur:
@@ -17,11 +17,11 @@ def create_db_table():
             cur.execute('CREATE TABLE twids(tw_id varchar);')
         conn.commit()
         
-def insert_db(tw_id="dammy"):
+def insert_db(tw_id,retwed):
     with get_connection() as conn:
         with conn.cursor() as cur:
             #dataのレコード
-            cur.execute('INSERT INTO twids (tw_id) VALUES (%s)', (f'{tw_id}',))
+            cur.execute('INSERT INTO twids (tw_id , retwed ) VALUES (%s ,%s)', (f'{tw_id}',f'{retwed}'))
             
             print(f"\ninsert {tw_id}\n")
         conn.commit()
@@ -33,8 +33,7 @@ def remove_db(tw_id):
             
             print(f"\nremove {tw_id}\n")
         conn.commit()
-
-#データのオーバーフローを防ぐために900行分削除する関数
+        
 def del_900():
     del_id_list = []
     with get_connection() as conn:
@@ -70,7 +69,7 @@ def print_db():
             colnames = [col.name for col in cur.description]
             print(colnames)
             for row in cur:
-                print(row[0])
+                print(row)
             
 def count_db():    
     with get_connection() as conn:
@@ -80,8 +79,38 @@ def count_db():
             print(cnt)
     return cnt
             
+def add_column():#ALTER TABLE テーブル名 ADD COLUMN カラム名 データ型;
+    with get_connection() as conn:
+        with conn.cursor() as cur:            
+            cur.execute('ALTER TABLE twids ADD COLUMN retwed varchar;')
+        conn.commit()
+        
+def update_retwed():#UPDATE テーブル名 SET 列名 = 式 WHERE 条件式;
+    with get_connection() as conn:
+        with conn.cursor() as cur:            
+            cur.execute("UPDATE twids SET retwed = 'no' WHERE tw_id = 'dammy';")
+            #cur.execute("UPDATE twids SET retwed = 'yes';")
+        conn.commit()
+        
+def get_no_retwed():
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM twids WHERE retwed = 'no';")
+            colnames = [col.name for col in cur.description]
+            print(colnames)
+            tws = []
+            for row in cur:
+                tws.append(row[0])
+            return tws
             
+        
 if __name__ == "__main__":
     #create_db_table()
+    #update_retwed()
+    #tw_id = "dammy2"
+    #retwed = "yes"
+    #insert_db(tw_id, retwed)
+    print(check_db("dammy2"))
     print_db()
     count_db()
+    
