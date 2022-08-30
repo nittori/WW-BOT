@@ -55,6 +55,7 @@ def tw_retweet(api,tw_id):
     try:
         api.retweet(tw_id)
         tw_db.insert_db(tw_id)
+        time.sleep(5*60)
         return True
     except:
         print("retweet error")
@@ -69,7 +70,7 @@ def tw_favo(api,tw_id):
 def main():
     api = get_api()
     #検索キーワード
-    keywords = ["#魔女兵器","魔女兵器","レンちゃん"]
+    keywords = ["#魔女兵器"]
     
     #キーワード順でRTが偏らないようにキーワードをシャッフル
     random.shuffle(keywords)
@@ -81,12 +82,6 @@ def main():
         for retw_id in retw_ids:
             retw_flag = tw_retweet(api,retw_id)
             
-            #一件RTできたら２重ループを抜ける
-            if retw_flag:
-                print(f"The key word this time was {keyword}")
-                break
-        if retw_flag:
-            break
             
             
 if __name__ == "__main__":
