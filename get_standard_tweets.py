@@ -43,7 +43,7 @@ def tw_search(api,keyword):
             else:
                 #取得ツイート確認
                 print(user_id,tw_date,text)
-                tw_ids.append(tw_id,"no")
+                tw_db.insert_db(tw_id,"no")
      
 def main():
     api = get_api()
