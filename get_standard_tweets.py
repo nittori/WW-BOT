@@ -31,14 +31,15 @@ def tw_search(api,keyword):
         favo: int = tweet.favorite_count
         text: str = tweet.full_text.replace('\n','')
         
-        #リクエスト過多を防ぐためのsleep
+        #BDへのリクエスト過多を防ぐためのsleep
         time.sleep(1)
-        #検索を完全一致に
+        #誤RTをなくすためテキストに魔女兵器が入っていることを確認
         if "魔女兵器" in text:
             #取得したツイートがデータベースに登録済みならスルー
             if tw_db.check_db(tw_id) == True:
                 print(f"{tw_id} has already been registered")
                 continue
+            
             #未登録ツイートの処理、データベースにも登録
             else:
                 #取得ツイート確認

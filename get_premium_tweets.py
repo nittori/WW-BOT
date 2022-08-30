@@ -18,6 +18,7 @@ def get_api():
 
 def tw_search(api,keyword):
     #RTを除外して検索
+    #sandboxはpremium検索が行える無料版API、search_30_dayは250回/月のリクエストが可能
     query = f"{keyword} - RT"
     label = os.environ.get('DEV_LABEL')
     tweets = api.search_30_day(label, query, maxResults=10)

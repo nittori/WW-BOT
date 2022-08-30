@@ -24,6 +24,7 @@ def get_api():
     return api
 
 def get_tw_indb():
+    #RTしてないツイートをデータベースから取得
     tw_ids = tw_db.get_no_retwed()
     return tw_ids
 
@@ -31,18 +32,20 @@ def tw_retweet(api,tw_id):
     try:
         api.retweet(tw_id)
         tw_db.update_retwed(tw_id,"yes")
+        #念のためtime.sleep
         print(f"RT {tw_id}")
-        
         time.sleep(10)
         return True
     except:
         print("retweet error")
+        time.sleep(10)
         return False
 
 def main():
     api = get_api()
     
     tw_ids = get_tw_indb()
+    #取得したtw_idの1つだけをRT、その他は次回に回す。
     tw_retweet(api, tw_ids[0])
             
 if __name__ == "__main__":
