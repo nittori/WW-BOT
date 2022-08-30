@@ -46,7 +46,9 @@ def main():
     
     tw_ids = get_tw_indb()
     #取得したtw_idの1つだけをRT、その他は次回に回す。
-    tw_retweet(api, tw_ids[0])
+    for tw_id in tw_ids:
+        tw_retweet(api, tw_id)
+        break
             
 if __name__ == "__main__":
     main()
