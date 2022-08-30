@@ -29,28 +29,21 @@ def get_tw_indb():
 
 def tw_retweet(api,tw_id):
     try:
-        api.retweet(tw_id)
-        tw_db.update_db(tw_id,"yes")
+        #api.retweet(tw_id)
+        tw_db.update_retwed(tw_id,"yes")
+        print(f"RT {tw_id}")
+        
+        time.sleep(10)
         return True
     except:
         print("retweet error")
         return False
 
-def tw_favo(api,tw_id):
-    try:    
-        api.create_favorite(id=tw_id)
-    except:
-        print("favorite error")
-     
 def main():
     api = get_api()
     
     tw_ids = get_tw_indb()
-    
-    for tw_id in tw_ids:
-        if tw_retweet(api, tw_id):
-            break
-            
+    tw_retweet(api, tw_ids[0])
             
 if __name__ == "__main__":
     main()

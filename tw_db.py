@@ -85,10 +85,10 @@ def add_column():#ALTER TABLE テーブル名 ADD COLUMN カラム名 データ�
             cur.execute('ALTER TABLE twids ADD COLUMN retwed varchar;')
         conn.commit()
         
-def update_retwed():#UPDATE テーブル名 SET 列名 = 式 WHERE 条件式;
+def update_retwed(tw_id,retwed):#UPDATE テーブル名 SET 列名 = 式 WHERE 条件式;
     with get_connection() as conn:
         with conn.cursor() as cur:            
-            cur.execute("UPDATE twids SET retwed = 'no' WHERE tw_id = 'dammy';")
+            cur.execute(f"UPDATE twids SET retwed = '{retwed}' WHERE tw_id = 'tw_id';")
             #cur.execute("UPDATE twids SET retwed = 'yes';")
         conn.commit()
         
