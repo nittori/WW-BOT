@@ -55,7 +55,6 @@ def tw_retweet(api,tw_id):
     try:
         api.retweet(tw_id)
         tw_db.insert_db(tw_id)
-        time.sleep(5*60)
         return True
     except:
         print("retweet error")
@@ -70,19 +69,16 @@ def tw_favo(api,tw_id):
 def main():
     api = get_api()
     #検索キーワード
-    keywords = ["#魔女兵器"]
-    
-    #キーワード順でRTが偏らないようにキーワードをシャッフル
-    random.shuffle(keywords)
+    keyword = "#魔女兵器"
     
     retw_flag = False
-    for keyword in keywords:
-        retw_ids = tw_search(api,keyword)
+    retw_ids = tw_search(api,keyword)
+    
+    for retw_id in retw_ids:
+        retw_flag = tw_retweet(api,retw_id)
+        if retw_flag:
+            break
         
-        for retw_id in retw_ids:
-            retw_flag = tw_retweet(api,retw_id)
-            
-            
             
 if __name__ == "__main__":
     main()
