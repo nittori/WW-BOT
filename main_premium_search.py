@@ -77,16 +77,13 @@ def main():
     retw_cnt = 0
     keyword = keywords[0]
     retw_ids = tw_search(api,keyword)
-    """
+    
     for retw_id in retw_ids:
         if tw_retweet(api,retw_id):
-            cnt+=1
+            retw_cnt+=1
             
-        if cnt > 7:
+        if retw_cnt > 6:
             break
-    if cnt > 7:
-        break
-    """   
             
             
 if __name__ == "__main__":
