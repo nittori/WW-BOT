@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Aug 30 23:04:05 2022
-
-@author: minaguchi_kohei
-"""
-
 import tweepy
 import time
 import os
