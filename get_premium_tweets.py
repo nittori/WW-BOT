@@ -32,6 +32,7 @@ def tw_search(api,keyword):
         tw_date = tweet.created_at
         favo: int = tweet.favorite_count
         text: str = tweet.text.replace('\n','')
+        print(tw_id)
         
         #検索を完全一致に
         if "魔女兵器" in text:
@@ -51,7 +52,7 @@ def tw_search(api,keyword):
             #未登録ツイートの処理、データベースにも登録
             else:
                 #取得ツイート確認
-                print(user_id,tw_date,text)
+                print("insert db",user_id,tw_date,text)
                 tw_db.insert_db(tw_id, "no")
 
     return tw_ids

@@ -32,6 +32,7 @@ def tw_search(api,keyword):
         tw_date = tweet.created_at
         favo: int = tweet.favorite_count
         text: str = tweet.full_text.replace('\n','')
+        print(tw_id)
         
         #BDへのリクエスト過多を防ぐためのsleep
         time.sleep(1)
