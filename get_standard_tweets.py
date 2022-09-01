@@ -32,7 +32,6 @@ def tw_search(api,keyword):
         tw_date = tweet.created_at
         favo: int = tweet.favorite_count
         text: str = tweet.full_text.replace('\n','')
-        print(tw_id)
         
         #BDへのリクエスト過多を防ぐためのsleep
         time.sleep(1)
@@ -41,11 +40,11 @@ def tw_search(api,keyword):
             
             #replyをはじく
             if "@" in text:
-                print("RT replies error")
+                print(f"{tw_id} RT replies error")
                 continue
             #mute userのツイートをはじく
             if user_id in mute_users:
-                print("mute user error")
+                print(f"{tw_id} mute user error")
                 continue
             
             
@@ -57,7 +56,7 @@ def tw_search(api,keyword):
             #未登録ツイートの処理、データベースにも登録
             else:
                 #取得ツイート確認
-                print(user_id,tw_date,text)
+                print(f"Insert {tw_id} to DB, {user_id} {tw_date} {text}")
                 tw_db.insert_db(tw_id,"no")
      
 def main():
