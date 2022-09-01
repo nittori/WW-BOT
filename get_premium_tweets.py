@@ -23,6 +23,8 @@ def tw_search(api,keyword):
     label = os.environ.get('DEV_LABEL')
     tweets = api.search_30_day(label, query, maxResults=10)
     
+    mute_users = ["Moriarty0413"]
+    
     tw_ids = []
     for tweet in tweets:
         user_id: str = tweet.user.screen_name
@@ -33,6 +35,15 @@ def tw_search(api,keyword):
         
         #検索を完全一致に
         if "魔女兵器" in text:
+            #replyをはじく
+            if "@" in text:
+                print("RT replies error")
+                continue
+            #mute userのツイートをはじく
+            if user_id in mute_users:
+                print("mute user error")
+                continue
+            
             #取得したツイートがデータベースに登録済みならスルー
             if tw_db.check_db(tw_id) == True:
                 print(f"{tw_id} has already been registered")
